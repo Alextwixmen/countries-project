@@ -7,14 +7,19 @@ import { Controls } from '../components/Controls';
 import {
   selectAllCountries,
   selectCountriesInfo,
+  selectVisibleCountris,
 } from '../store/countries/countries-selectors';
 import { loadCountries } from '../store/countries/countries-actions';
+import { selectSearch } from '../store/controls/controls-selectors';
 
 export const HomePage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const countries = useSelector(selectAllCountries);
   const { status, error, qty } = useSelector(selectCountriesInfo);
+  const search = useSelector(selectSearch);
+  const countries = useSelector((state) =>
+    selectVisibleCountris(state, { search })
+  );
   useEffect(() => {
     if (!qty) {
       dispatch(loadCountries());
