@@ -1,5 +1,6 @@
 {
-  "name": "http://Alextwixmen.github.io/countries-project",
+  "homepage": "https://alextwixmen.github.io/countries-project",
+  "name": "countries-project",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
