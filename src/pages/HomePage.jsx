@@ -4,21 +4,26 @@ import { useEffect } from 'react';
 import { List } from '../components/List';
 import { Card } from '../components/Card';
 import { Controls } from '../components/Controls';
+import throttle from 'lodash.throttle';
 import {
   selectAllCountries,
   selectCountriesInfo,
   selectVisibleCountris,
 } from '../store/countries/countries-selectors';
 import { loadCountries } from '../store/countries/countries-actions';
-import { selectSearch } from '../store/controls/controls-selectors';
+import {
+  selectControls,
+  selectSearch,
+} from '../store/controls/controls-selectors';
 
 export const HomePage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { status, error, qty } = useSelector(selectCountriesInfo);
-  const search = useSelector(selectSearch);
-  const countries = useSelector((state) =>
-    selectVisibleCountris(state, { search })
+  const { search, region } = useSelector(selectControls);
+
+  const countries = useSelector(
+    throttle((state) => selectVisibleCountris(state, { search, region }), 1000)
   );
   useEffect(() => {
     if (!qty) {
