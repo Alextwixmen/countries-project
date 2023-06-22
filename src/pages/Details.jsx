@@ -30,7 +30,7 @@ export const Details = () => {
       </Button>
       {status === 'loading' && <h2>Loading...</h2>}
       {error && <h2>{error}</h2>}
-      {currentCountry && <Info push={navigate} {...currentCountry} />}
+      {currentCountry && <Info navigate={navigate} {...currentCountry} />}
     </div>
   );
 };
